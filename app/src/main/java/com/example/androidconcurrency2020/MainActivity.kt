@@ -58,9 +58,10 @@ class MainActivity : AppCompatActivity() {
                 bundle.putInt(DIE_INDEX_KEY, dieIndex)
                 for (i in 1..20) {
                     bundle.putInt(DIE_VALUE_KEY, getDieValue())
-                    val message = Message()
-                    message.data = bundle
-                    handler.sendMessage(message)
+                    Message().also {
+                        it.data = bundle
+                        handler.sendMessage(it)
+                    }
                     Thread.sleep(100)
                 }
             }
