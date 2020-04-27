@@ -4,47 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androidconcurrency2020.MainActivity">
+    tools:context=".MainActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/activity_margin"
-        app:layout_constraintBottom_toTopOf="@+id/runButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:context=".ScrollingActivity"
-        tools:showIn="@layout/activity_main">
-
-        <TextView
-            android:id="@+id/log_display"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:freezesText="true"
-            android:text="@string/lorem_ipsum"
-            android:textSize="@dimen/log_text_size" />
-    </androidx.core.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/runButton"
+    <TextView
+        android:id="@+id/headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/run_code"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/clearButton"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/clear"
+        android:layout_marginTop="@dimen/headline_margin"
+        android:layout_marginBottom="@dimen/headline_margin"
+        android:text="@string/roll_the_dice"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/runButton"
-        app:layout_constraintTop_toTopOf="@id/runButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/die1"
+        android:layout_width="@dimen/die_dimen"
+        android:layout_height="@dimen/die_dimen"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/die_6"
+        app:layout_constraintEnd_toStartOf="@+id/die2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headline"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/die2"
+        android:layout_width="@dimen/die_dimen"
+        android:layout_height="@dimen/die_dimen"
+        android:src="@drawable/die_6"
+        app:layout_constraintEnd_toStartOf="@+id/die3"
+        app:layout_constraintStart_toEndOf="@+id/die1"
+        app:layout_constraintTop_toTopOf="@+id/die1"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/die3"
+        android:layout_width="@dimen/die_dimen"
+        android:layout_height="@dimen/die_dimen"
+        android:src="@drawable/die_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/die2"
+        app:layout_constraintTop_toTopOf="@+id/die2"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/die4"
+        android:layout_width="@dimen/die_dimen"
+        android:layout_height="@dimen/die_dimen"
+        android:layout_marginTop="@dimen/dice_vertical_margin"
+        android:src="@drawable/die_6"
+        app:layout_constraintEnd_toEndOf="@+id/die2"
+        app:layout_constraintStart_toStartOf="@id/die1"
+        app:layout_constraintTop_toBottomOf="@+id/die1"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/die5"
+        android:layout_width="@dimen/die_dimen"
+        android:layout_height="@dimen/die_dimen"
+        android:src="@drawable/die_6"
+        app:layout_constraintEnd_toEndOf="@+id/die3"
+        app:layout_constraintStart_toStartOf="@+id/die2"
+        app:layout_constraintTop_toTopOf="@+id/die4"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/rollButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/button_margin"
+        android:text="@string/roll"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
