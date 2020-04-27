@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
             R.drawable.die_6
         )
 
-        for (die in imageViews) {
+        for (dieIndex in imageViews.indices) {
             val dieNumber = getDieValue()
-            die.setImageResource(drawables[dieNumber - 1])
+            imageViews[dieIndex].setImageResource(drawables[dieNumber - 1])
         }
 
     }
