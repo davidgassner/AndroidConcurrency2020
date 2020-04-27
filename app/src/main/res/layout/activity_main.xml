@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.coderunner2020.MainActivity">
+    tools:context="com.example.androidconcurrency2020.MainActivity">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
