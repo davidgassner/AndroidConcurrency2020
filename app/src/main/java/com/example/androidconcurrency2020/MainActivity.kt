@@ -1,9 +1,6 @@
 package com.example.androidconcurrency2020
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidconcurrency2020.databinding.ActivityMainBinding
 import kotlin.random.Random
@@ -28,8 +25,8 @@ class MainActivity : AppCompatActivity() {
      */
     private fun rollTheDice() {
 
-        val dice = arrayOf(binding.die1, binding.die2, binding.die3, binding.die4, binding.die5)
-        val images = arrayOf(
+        val imageViews = arrayOf(binding.die1, binding.die2, binding.die3, binding.die4, binding.die5)
+        val drawables = arrayOf(
             R.drawable.die_1,
             R.drawable.die_2,
             R.drawable.die_3,
@@ -38,9 +35,9 @@ class MainActivity : AppCompatActivity() {
             R.drawable.die_6
         )
 
-        for (die in dice) {
-            val dieNumber = getDie()
-            die.setImageResource(images[dieNumber - 1])
+        for (die in imageViews) {
+            val dieNumber = getDieValue()
+            die.setImageResource(drawables[dieNumber - 1])
         }
 
     }
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Get a random number from 1 to 6
      */
-    private fun getDie(): Int {
+    private fun getDieValue(): Int {
         return Random.nextInt(1, 7)
     }
 
