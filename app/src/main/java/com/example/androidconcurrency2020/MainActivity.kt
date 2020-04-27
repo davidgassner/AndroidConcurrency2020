@@ -11,7 +11,7 @@ import com.example.androidconcurrency2020.databinding.ActivityMainBinding
 import kotlin.concurrent.thread
 import kotlin.random.Random
 
-const val DIE_INDEX_KEY = "die_number_key"
+const val DIE_INDEX_KEY = "die_index_key"
 const val DIE_VALUE_KEY = "die_value_key"
 
 class MainActivity : AppCompatActivity() {
