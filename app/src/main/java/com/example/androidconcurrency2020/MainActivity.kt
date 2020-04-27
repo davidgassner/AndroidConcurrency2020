@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidconcurrency2020.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,44 +19,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize button click handlers
-        with(binding) {
-            runButton.setOnClickListener { runCode() }
-            clearButton.setOnClickListener { clearOutput() }
-        }
+        binding.rollButton.setOnClickListener { rollTheDice() }
 
     }
 
     /**
      * Run some code
      */
-    private fun runCode() {
-        log("Running code")
+    private fun rollTheDice() {
     }
 
     /**
-     * Clear log display
+     * Get a random number from 1 to 6
      */
-    private fun clearOutput() {
-        binding.logDisplay.text = ""
-        scrollTextToEnd()
-    }
-
-    /**
-     * Log output to logcat and the screen
-     */
-    @Suppress("SameParameterValue")
-    private fun log(message: String) {
-        Log.i(LOG_TAG, message)
-        binding.logDisplay.append(message + "\n")
-        scrollTextToEnd()
-    }
-
-    /**
-     * Scroll to end. Wrapped in post() function so it's the last thing to happen
-     */
-    private fun scrollTextToEnd() {
-        Handler().post { binding.scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
+    private fun getDie(): Int {
+        return Random.nextInt(1, 7)
     }
 
 }
