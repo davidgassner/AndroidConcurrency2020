@@ -27,6 +27,22 @@ class MainActivity : AppCompatActivity() {
      * Run some code
      */
     private fun rollTheDice() {
+
+        val dice = arrayOf(binding.die1, binding.die2, binding.die3, binding.die4, binding.die5)
+        val images = arrayOf(
+            R.drawable.die_1,
+            R.drawable.die_2,
+            R.drawable.die_3,
+            R.drawable.die_4,
+            R.drawable.die_5,
+            R.drawable.die_6
+        )
+
+        for (die in dice) {
+            val dieNumber = getDie()
+            die.setImageResource(images[dieNumber - 1])
+        }
+
     }
 
     /**
