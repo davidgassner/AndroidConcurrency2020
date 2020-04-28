@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
      * Run some code
      */
     private fun runCode() {
-        log("Running code")
+
     }
 
     /**
