@@ -5,6 +5,8 @@ import android.os.Handler
 import android.util.Log
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.androidconcurrency2020.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 import java.net.URL
@@ -15,6 +17,7 @@ const val fileUrl = "https://2833069.youcanlearnit.net/lorem_ipsum.txt"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +32,18 @@ class MainActivity : AppCompatActivity() {
             clearButton.setOnClickListener { clearOutput() }
         }
 
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.myData.observe(this, Observer {
+            log(it)
+        })
+
     }
 
     /**
      * Run some code
      */
     private fun runCode() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val result = fetchSomething()
-            log(result)
-        }
+        viewModel.doWork()
     }
 
     /**
@@ -64,14 +69,6 @@ class MainActivity : AppCompatActivity() {
      */
     private fun scrollTextToEnd() {
         Handler().post { binding.scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
-    }
-
-    private suspend fun fetchSomething(): String {
-        log("Starting the request")
-        return withContext(Dispatchers.IO) {
-            val url = URL(fileUrl)
-            return@withContext url.readText(Charset.defaultCharset())
-        }
     }
 
 }
