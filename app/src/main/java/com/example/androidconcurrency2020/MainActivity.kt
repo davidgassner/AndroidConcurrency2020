@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun runCode() {
         CoroutineScope(Dispatchers.Main).launch {
             val result = fetchSomething()
-            log(result ?: "Null")
+            log(result)
         }
     }
 
@@ -66,8 +66,7 @@ class MainActivity : AppCompatActivity() {
         Handler().post { binding.scrollView.fullScroll(ScrollView.FOCUS_DOWN) }
     }
 
-    private suspend fun fetchSomething(): String? {
-//        delay(2000)
+    private suspend fun fetchSomething(): String {
         log("Starting the request")
         return withContext(Dispatchers.IO) {
             val url = URL(fileUrl)
