@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize button click handlers
         with(binding) {
             runButton.setOnClickListener { runCode() }
-            clearButton.setOnClickListener { clearOutput() }
+            clearButton.setOnClickListener { viewModel.cancelJob() }
         }
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
      * Run some code
      */
     private fun runCode() {
+        clearOutput()
         viewModel.doWork()
     }
 
