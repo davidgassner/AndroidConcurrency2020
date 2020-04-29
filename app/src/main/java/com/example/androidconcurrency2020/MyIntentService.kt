@@ -1,6 +1,5 @@
 package com.example.androidconcurrency2020
 
-import android.app.IntentService
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -13,11 +12,6 @@ private const val EXTRA_FILE_URL = "com.example.androidconcurrency2020.extra.FIL
 private const val JOB_ACTION = "com.example.androidconcurrency2020.extra.JOB_ACTION"
 private const val JOB_ID = 1001
 
-/**
- * An [IntentService] subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * helper methods.
- */
 class MyIntentService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
@@ -29,7 +23,6 @@ class MyIntentService : JobIntentService() {
     }
 
     companion object {
-        @JvmStatic
         fun startAction(context: Context, fileUrl: String) {
             val intent = Intent(context, MyIntentService::class.java).apply {
                 action = JOB_ACTION
