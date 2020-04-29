@@ -4,6 +4,7 @@ import android.app.IntentService
 import android.content.Intent
 import android.content.Context
 import android.util.Log
+import androidx.core.app.JobIntentService
 
 // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
 private const val ACTION_FOO = "com.example.androidconcurrency2020.action.FOO"
@@ -12,15 +13,17 @@ private const val ACTION_BAZ = "com.example.androidconcurrency2020.action.BAZ"
 private const val EXTRA_PARAM1 = "com.example.androidconcurrency2020.extra.PARAM1"
 private const val EXTRA_PARAM2 = "com.example.androidconcurrency2020.extra.PARAM2"
 
+const val JOB_ID = 1001
+
 /**
  * An [IntentService] subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * helper methods.
  */
-class MyIntentService : IntentService("MyIntentService") {
+class MyIntentService : JobIntentService() {
 
-    override fun onHandleIntent(intent: Intent?) {
-        when (intent?.action) {
+    override fun onHandleWork(intent: Intent) {
+        when (intent.action) {
             ACTION_FOO -> {
                 val param1 = intent.getStringExtra(EXTRA_PARAM1)
                 val param2 = intent.getStringExtra(EXTRA_PARAM2)
@@ -64,7 +67,7 @@ class MyIntentService : IntentService("MyIntentService") {
                 putExtra(EXTRA_PARAM1, param1)
                 putExtra(EXTRA_PARAM2, param2)
             }
-            context.startService(intent)
+            enqueueWork(context, MyIntentService::class.java, JOB_ID, intent)
         }
 
         /**
@@ -80,7 +83,7 @@ class MyIntentService : IntentService("MyIntentService") {
                 putExtra(EXTRA_PARAM1, param1)
                 putExtra(EXTRA_PARAM2, param2)
             }
-            context.startService(intent)
+            enqueueWork(context, MyIntentService::class.java, JOB_ID, intent)
         }
     }
 }
