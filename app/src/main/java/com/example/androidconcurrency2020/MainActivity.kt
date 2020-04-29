@@ -5,6 +5,8 @@ import android.os.Handler
 import android.util.Log
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.androidconcurrency2020.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +32,8 @@ class MainActivity : AppCompatActivity() {
      * Run some code
      */
     private fun runCode() {
-        log("Running code")
+        val workRequest = OneTimeWorkRequestBuilder<MyWorker>().build()
+        WorkManager.getInstance(applicationContext).enqueue(workRequest)
     }
 
     /**
