@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
      * Run some code
      */
     private fun runCode() {
-        MyIntentService.startActionFoo(this, "Param1", "Param2")
+        MyIntentService.startAction(this, FILE_URL)
     }
 
     /**
