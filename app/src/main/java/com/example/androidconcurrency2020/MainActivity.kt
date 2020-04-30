@@ -44,9 +44,18 @@ class MainActivity : AppCompatActivity() {
         workManager.enqueue(workRequest)
         workManager.getWorkInfoByIdLiveData(workRequest.id)
             .observe(this, Observer {
-                if (it.state == WorkInfo.State.SUCCEEDED) {
-                    val result = it.outputData.getString(DATA_KEY)
-                    log(result ?: "Null")
+                when (it.state) {
+                    WorkInfo.State.SUCCEEDED -> {
+                        val result = it.outputData.getString(DATA_KEY)
+                        log(result ?: "Null")
+                    }
+                    WorkInfo.State.RUNNING -> {
+                        val progress = it.progress.getString(MESSAGE_KEY)
+                        if (progress != null) {
+                            log(progress)
+                        }
+                    }
+
                 }
             })
     }
