@@ -5,10 +5,8 @@ import android.os.Handler
 import android.util.Log
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.lifecycle.Observer
+import androidx.work.*
 import com.example.androidconcurrency2020.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +39,16 @@ class MainActivity : AppCompatActivity() {
         val workRequest = OneTimeWorkRequestBuilder<MyWorker>()
             .setConstraints(constraints)
             .build()
-        WorkManager.getInstance(applicationContext).enqueue(workRequest)
+
+        val workManager = WorkManager.getInstance(applicationContext)
+        workManager.enqueue(workRequest)
+        workManager.getWorkInfoByIdLiveData(workRequest.id)
+            .observe(this, Observer {
+                if (it.state == WorkInfo.State.SUCCEEDED) {
+                    val result = it.outputData.getString(DATA_KEY)
+                    log(result ?: "Null")
+                }
+            })
     }
 
     /**
