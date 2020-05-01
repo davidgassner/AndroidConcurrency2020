@@ -11,6 +11,9 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 
+const val NOTIFICATION_ACTION_PLAY = "action_play"
+const val NOTIFICATION_ACTION_STOP = "action_stop"
+
 class MyService : Service() {
 
     private val binder = MyServiceBinder()
@@ -21,6 +24,10 @@ class MyService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        when (intent?.action) {
+            NOTIFICATION_ACTION_PLAY -> startMusic()
+            NOTIFICATION_ACTION_STOP -> stopMusic()
+        }
         return START_STICKY
     }
 
@@ -48,11 +55,16 @@ class MyService : Service() {
         val pendingIntent =
             PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
+        val playIntent = getPendingIntent(NOTIFICATION_ACTION_PLAY)
+        val stopIntent = getPendingIntent(NOTIFICATION_ACTION_STOP)
+
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Playing music")
             .setContentText(AUDIO_FILE)
             .setSmallIcon(R.drawable.ic_run)
             .setContentIntent(pendingIntent)
+            .addAction(0, "Play", playIntent)
+            .addAction(0, "Stop", stopIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setWhen(0)
             .build()
@@ -83,6 +95,13 @@ class MyService : Service() {
         } catch (e: UninitializedPropertyAccessException) {
         }
         stopForeground(false)
+    }
+
+    private fun getPendingIntent(action: String): PendingIntent {
+        var serviceIntent = Intent(this, MyService::class.java).also {
+            it.action = action
+        }
+        return PendingIntent.getService(this, 0, serviceIntent, 0)
     }
 
     inner class MyServiceBinder : Binder() {
