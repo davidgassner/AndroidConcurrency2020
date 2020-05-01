@@ -67,13 +67,14 @@ class MainActivity : AppCompatActivity() {
      * Run some code
      */
     private fun runCode() {
-        myService.doSomething()
+        myService.startMusic()
     }
 
     /**
      * Clear log display
      */
     private fun clearOutput() {
+        myService.stopMusic()
         binding.logDisplay.text = ""
         scrollTextToEnd()
     }
