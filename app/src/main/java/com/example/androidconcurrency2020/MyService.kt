@@ -3,6 +3,7 @@ package com.example.androidconcurrency2020
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.Build
@@ -57,6 +58,7 @@ class MyService : Service() {
 
         val playIntent = getPendingIntent(NOTIFICATION_ACTION_PLAY)
         val stopIntent = getPendingIntent(NOTIFICATION_ACTION_STOP)
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.notification_image)
 
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Playing music")
@@ -67,6 +69,11 @@ class MyService : Service() {
             .addAction(0, "Stop", stopIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setWhen(0)
+            .setStyle(
+                NotificationCompat.BigPictureStyle()
+                    .bigPicture(bitmap)
+                    .setSummaryText(AUDIO_FILE)
+            )
             .build()
         startForeground(1001, notification)
 
