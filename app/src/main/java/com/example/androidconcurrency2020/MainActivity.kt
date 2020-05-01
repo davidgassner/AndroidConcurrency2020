@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.i(LOG_TAG, "Service created")
+
         // Initialize view binding for view object references
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,10 +45,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(LOG_TAG, "Service destroyed")
+    }
+
     override fun onStart() {
         super.onStart()
         Intent(this, MyService::class.java).also {
             bindService(it, connection, Context.BIND_AUTO_CREATE)
+            startService(it)
         }
     }
 

@@ -14,6 +14,10 @@ class MyService : Service() {
         return binder
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY
+    }
+
     fun doSomething() {
         Log.i(LOG_TAG, "The service is doing something!")
     }
